@@ -8,4 +8,5 @@ from user import views
 
 urlpatterns = [
     path(r'', views.index),
+    path(r'/login', views.login),
 ]
