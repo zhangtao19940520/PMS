@@ -7,6 +7,7 @@ from django.urls import path
 from user import views
 
 urlpatterns = [
-    path(r'', views.index),
-    path(r'/login', views.login),
+    path(r'login', views.login),
+    path(r'register', views.register),
+    path(r'getimgcode', views.getimagecode),
 ]

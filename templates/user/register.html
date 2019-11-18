@@ -1,0 +1,100 @@
+{% extends 'layout/layout.html' %}
+{% block title %}用户注册{% endblock %}
+{% block css %}
+    <style>
+
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="layui-container fly-marginTop">
+        <div class="fly-panel fly-panel-user" pad20="">
+            <div class="layui-tab layui-tab-brief" lay-filter="user">
+                <ul class="layui-tab-title">
+                    <li><a href="/user/login">登入</a></li>
+                    <li class="layui-this">注册</li>
+                </ul>
+                <div class="layui-form layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
+                    <div class="layui-tab-item layui-show">
+                        <div class="layui-form layui-form-pane">
+                            <form method="post" action="/user/register">
+                                {% csrf_token %}
+                                <div class="layui-form-item"><label for="email" class="layui-form-label">邮箱</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" id="email" name="email"
+                                               required="" lay-verify="email"
+                                               autocomplete="off" class="layui-input">
+                                    </div>
+                                    <div class="layui-form-mid layui-word-aux">请输入真实邮箱，用于接收邮箱验证码</div>
+                                </div>
+                                <div class="layui-form-item"><label for="mobile" class="layui-form-label">手机</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" id="mobile" name="mobile"
+                                               required="" lay-verify="phone"
+                                               autocomplete="off" class="layui-input">
+                                    </div>
+                                    <div class="layui-form-mid layui-word-aux">手机号将作为您的唯一账号，请输入真实号码</div>
+                                </div>
+                                <div class="layui-form-item"><label for="imagecode" class="layui-form-label">图形码</label>
+                                    <div class="layui-input-inline"><input type="text" id="imagecode" name="imagecode"
+                                                                           required="" lay-verify="required"
+                                                                           autocomplete="off" class="layui-input"></div>
+                                    <div class="layui-form-mid" style="padding: 0!important;">
+                                        <img src="/user/getimgcode?t=1" class="fly-imagecode"
+                                             style="height: 36px;width: 106px;"
+                                             alt="图片验证码"
+                                             onclick="src = '/user/getimgcode?t=' + (new Date()).getTime();">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item"><label for="vercode" class="layui-form-label">验证码</label>
+                                    <div class="layui-input-inline"><input type="text" id="vercode" name="vercode"
+                                                                           required="" lay-verify="required"
+                                                                           placeholder="请输入邮件验证码" autocomplete="off"
+                                                                           class="layui-input"></div>
+                                    <div class="layui-form-mid" style="padding: 0!important;">
+                                        <button type="button" class="layui-btn layui-btn-normal" id="getvercode">
+                                            获取验证码
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label for="realname" class="layui-form-label">真实姓名</label>
+                                    <div class="layui-input-inline"><input type="text" id="realname" name="realname"
+                                                                           required="" lay-verify="required"
+                                                                           autocomplete="off" class="layui-input"></div>
+                                    <div class="layui-form-mid layui-word-aux">您的真实姓名，用于支付宝转账，请如实填写</div>
+                                </div>
+                                <div class="layui-form-item"><label for="L_pass" class="layui-form-label">密码</label>
+                                    <div class="layui-input-inline"><input type="password" id="L_pass" name="pass"
+                                                                           required="" lay-verify="required"
+                                                                           autocomplete="off" class="layui-input"></div>
+                                    <div class="layui-form-mid layui-word-aux">6到16个字符</div>
+                                </div>
+                                <div class="layui-form-item"><label for="L_repass" class="layui-form-label">确认密码</label>
+                                    <div class="layui-input-inline"><input type="password" id="L_repass" name="repass"
+                                                                           required="" lay-verify="required"
+                                                                           autocomplete="off" class="layui-input"></div>
+                                    <div class="layui-form-mid layui-word-aux">重复你的密码</div>
+                                </div>
+                                <div class="layui-form-item" style="position: relative; left: -10px; height: 32px;">
+                                    <input type="checkbox" name="agreement" lay-skin="primary" title="" checked="">
+                                    <div class="layui-unselect layui-form-checkbox layui-form-checked"
+                                         lay-skin="primary"><i class="layui-icon layui-icon-ok"></i></div>
+                                    <a href="/instructions/terms.html" target="_blank"
+                                       style="position: relative; top: 4px; left: 5px; color: #999;">同意用户服务条款</a></div>
+                                <div class="layui-form-item">
+                                    <button class="layui-btn" lay-filter="*" lay-submit="" id="register_btn">立即注册
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="/static/js/page/register.js?t={% now "YmdHms" %}"></script>
+{% endblock %}
