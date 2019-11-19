@@ -120,7 +120,8 @@ class Common(object):
     常用方法类
     """
 
-    def sha1_encryption(self, msg):
+    @classmethod
+    def sha1_encryption(cls, msg):
         """
         sha1加密
         :param msg:加密前的字符串
@@ -130,7 +131,8 @@ class Common(object):
         s1.update(msg.encode())
         return s1.hexdigest()
 
-    def get_current_month_start_and_end(self, date):
+    @classmethod
+    def get_current_month_start_and_end(cls, date):
         """
         年份 date(2017-09-08格式)
         :param date:
@@ -144,14 +146,16 @@ class Common(object):
         end_date = '%s-%s-%s' % (year, month, end)
         return start_date, end_date
 
-    def get_current_date(self):
+    @classmethod
+    def get_current_date(cls):
         """
         获取当前日期（2019-07-01）
         :return:
         """
         return datetime.datetime.now().strftime('%Y-%m-%d')
 
-    def get_filePath_fileName_fileExt(self, file_url):
+    @classmethod
+    def get_filePath_fileName_fileExt(cls, file_url):
         """
         获取文件路径， 文件名， 后缀名
        :param file_url:
@@ -161,6 +165,18 @@ class Common(object):
         shotname, extension = os.path.splitext(tmpfilename)
 
         return filepath, shotname, extension
+
+    @classmethod
+    def get_num_code(cls, length):
+        """
+        生成数字随机验证码
+        :param length:验证码的长度
+        :return:
+        """
+        res = ''
+        for i in range(length):
+            res += str(random.randint(1, 9))
+        return res
 
 
 class SendEmail(object):
@@ -241,8 +257,7 @@ class SendEmail(object):
                     attach = MIMEText(f.read(), 'base64', 'utf-8')
                     attach["Content-Type"] = 'application/octet-stream'
                     # 根据路径获取文件名称
-                    com = Common()
-                    filepath, shotname, extension = com.get_filePath_fileName_fileExt(r'' + path)
+                    filepath, shotname, extension = Common().get_filePath_fileName_fileExt(r'' + path)
                     attach["Content-Disposition"] = 'attachment;filename="{0}"'.format(
                         shotname + extension)
                     msg.attach(attach)
@@ -284,8 +299,7 @@ class SendEmail(object):
                 with open(r'' + path, 'rb') as f:
                     image = MIMEImage(f.read())
                     # 根据路径获取文件名称
-                    com = Common()
-                    filepath, shotname, extension = com.get_filePath_fileName_fileExt(r'' + path)
+                    filepath, shotname, extension = Common().get_filePath_fileName_fileExt(r'' + path)
                     image.add_header('Content-Disposition',
                                      'attachment;filename="{0}"'.format(shotname + extension))
                     msg.attach(image)

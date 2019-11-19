@@ -10,7 +10,7 @@ class UserInfo(models.Model):
     用户信息
     """
     user_id = models.AutoField(primary_key=True, verbose_name='用户ID')
-    user_name = models.CharField(default='', max_length=10, unique=True, verbose_name='用户名')
+    user_name = models.CharField(default='', max_length=64, unique=True, verbose_name='用户名')
     password = models.CharField(default='', max_length=64, verbose_name='登录密码')
     real_name = models.CharField(default='', max_length=10, verbose_name='真实姓名')
     mobile = models.CharField(default='', max_length=11, verbose_name='手机号码')

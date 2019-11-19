@@ -17,23 +17,23 @@
                 <div class="layui-form layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
                     <div class="layui-tab-item layui-show">
                         <div class="layui-form layui-form-pane">
-                            <form method="post" action="/user/register">
-                                {% csrf_token %}
+                            <form id="reg_form" method="post" action="/user/register">
+                                {#                                {% csrf_token %}#}
                                 <div class="layui-form-item"><label for="email" class="layui-form-label">邮箱</label>
                                     <div class="layui-input-inline">
-                                        <input type="text" id="email" name="email"
+                                        <input type="text" id="email" name="email" value=""
                                                required="" lay-verify="email"
                                                autocomplete="off" class="layui-input">
                                     </div>
-                                    <div class="layui-form-mid layui-word-aux">请输入真实邮箱，用于接收邮箱验证码</div>
+                                    <div class="layui-form-mid layui-word-aux">请输入真实邮箱，用于接收验证码</div>
                                 </div>
                                 <div class="layui-form-item"><label for="mobile" class="layui-form-label">手机</label>
                                     <div class="layui-input-inline">
-                                        <input type="text" id="mobile" name="mobile"
+                                        <input type="text" id="mobile" name="mobile" value=""
                                                required="" lay-verify="phone"
                                                autocomplete="off" class="layui-input">
                                     </div>
-                                    <div class="layui-form-mid layui-word-aux">手机号将作为您的唯一账号，请输入真实号码</div>
+                                    <div class="layui-form-mid layui-word-aux">手机号将作为支付凭证，请输入真实号码</div>
                                 </div>
                                 <div class="layui-form-item"><label for="imagecode" class="layui-form-label">图形码</label>
                                     <div class="layui-input-inline"><input type="text" id="imagecode" name="imagecode"
@@ -83,7 +83,7 @@
                                     <a href="/instructions/terms.html" target="_blank"
                                        style="position: relative; top: 4px; left: 5px; color: #999;">同意用户服务条款</a></div>
                                 <div class="layui-form-item">
-                                    <button class="layui-btn" lay-filter="*" lay-submit="" id="register_btn">立即注册
+                                    <button class="layui-btn" lay-filter="*" lay-submit id="register_btn">立即注册
                                     </button>
                                 </div>
                             </form>

@@ -10,4 +10,5 @@ urlpatterns = [
     path(r'login', views.login),
     path(r'register', views.register),
     path(r'getimgcode', views.getimagecode),
+    path(r'getvercode', views.getvercode),
 ]
