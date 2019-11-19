@@ -5,6 +5,7 @@ from io import BytesIO
 from django.views.decorators.http import require_http_methods
 from django.core.cache import cache
 from user import models
+from django.db.models import Q
 
 
 # Create your views here.
@@ -72,11 +73,16 @@ def register(request):
             'mobile': mobile,
             'email': email,
         }
-        if models.UserInfo.objects.filter(user_name=email):
+        if models.UserInfo.objects.filter(email=email):
             ret_val.error = True
             ret_val.code = 2
             ret_val.message = '该邮箱账号已注册过，请直接登录！'
             return JsonResponse(ret_val.dict())
+        # if models.UserInfo.objects.filter(mobile=mobile):
+        #     ret_val.error = True
+        #     ret_val.code = 2
+        #     ret_val.message = '该手机号已注册过，请直接登录！'
+        #     return JsonResponse(ret_val.dict())
         if models.UserInfo.objects.create(**user_info):
             ret_val.error = False
             ret_val.code = 1
@@ -94,7 +100,53 @@ def login(request):
     :param request:
     :return:
     """
-    return render(request, 'user/login.html')
+    if request.method == 'GET':
+        return render(request, 'user/login.html', {'loginName': request.COOKIES.get('loginName', '')})
+    else:
+        ret_val = ReturnValue()
+        post_data = request.POST
+        # 获取参数
+        email_or_mobile = post_data.get('loginName', None)
+        passwd = post_data.get('pass', None)
+        img_code = post_data.get('imagecode', None)
+        remember = post_data.get('remember', None)
+        # 参数验证
+        if not email_or_mobile or not passwd or not img_code:
+            ret_val.error = True
+            ret_val.message = '所有参数均为必填，请如实填写'
+            ret_val.code = 2
+            return JsonResponse(ret_val.dict())
+        if img_code != request.session['ImageCode']:
+            ret_val.error = True
+            ret_val.message = '请输入正确的图片验证码！'
+            ret_val.code = 2
+            return JsonResponse(ret_val.dict())
+        # 获取用户信息
+        # user_info = models.UserInfo.objects.filter(Q(email=email_or_mobile) | Q(mobile=email_or_mobile)).first()
+        user_info = models.UserInfo.objects.filter(email=email_or_mobile).first()
+        if not user_info:
+            ret_val.error = True
+            ret_val.code = 2
+            ret_val.message = '该账号不存在，请确认！'
+            return JsonResponse(ret_val.dict())
+        if user_info.password != Common.sha1_encryption(passwd):
+            ret_val.error = True
+            ret_val.code = 2
+            ret_val.message = '登录密码错误，请确认！'
+            return JsonResponse(ret_val.dict())
+
+        ret_val.error = False
+        ret_val.code = 1
+        ret_val.message = '登录成功！'
+        res = JsonResponse(ret_val.dict())
+        # 保存用户名到cookie
+        if remember == 'on':
+            res.set_cookie("loginName", email_or_mobile)
+        else:
+            res.set_cookie("loginName", '')
+        # 保存用户信息到session
+        request.session['user_info'] = user_info
+        return res
 
 
 def getimagecode(request):
@@ -155,3 +207,12 @@ def getvercode(request):
         ret_val.error = True
         ret_val.message = '邮件发送失败'
     return JsonResponse(ret_val.dict())
+
+
+def terms(request):
+    """
+    用户条款
+    :param request:
+    :return:
+    """
+    return render(request, 'user/terms.html')

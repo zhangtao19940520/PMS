@@ -23,3 +23,6 @@ class UserInfo(models.Model):
 
     def __str__(self):
         return self.user_name
+
+    class Meta:
+        verbose_name_plural = verbose_name = "用户信息"

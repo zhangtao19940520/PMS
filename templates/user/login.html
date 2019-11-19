@@ -6,13 +6,65 @@
 {% endblock %}
 
 {% block content %}
-    <h1>--登录--</h1>
+    <div class="fly-panel fly-panel-user" pad20="">
+        <div class="layui-tab layui-tab-brief" lay-filter="user">
+            <ul class="layui-tab-title">
+                <li class="layui-this">登入</li>
+                <li><a href="/user/register">注册</a></li>
+            </ul>
+            <div class="layui-form layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
+                <div class="layui-tab-item layui-show">
+                    <div class="layui-form layui-form-pane">
+                        <form id="login_form">
+                            <div class="layui-form-item">
+                                <label for="L_loginName" class="layui-form-label">手机/邮箱</label>
+                                <div class="layui-input-inline"><input type="text" id="L_loginName" name="loginName"
+                                                                       required="" lay-verify="required"
+                                                                       value="{{ loginName }}"
+                                                                       autocomplete="off" class="layui-input"></div>
+                                {#                                <div class="layui-form-mid layui-word-aux"> 使用手机或者邮箱中的任意一个均可</div>#}
+                                <div class="layui-form-mid layui-word-aux"> 请输入您的注册邮箱</div>
+                            </div>
+                            <div class="layui-form-item"><label for="L_pass" class="layui-form-label">密码</label>
+                                <div class="layui-input-inline"><input type="password" id="L_pass" name="pass"
+                                                                       required="" lay-verify="required"
+                                                                       autocomplete="off" class="layui-input"></div>
+                            </div>
+                            <div class="layui-form-item"><label for="L_imagecode"
+                                                                class="layui-form-label">图形码</label>
+                                <div class="layui-input-inline"><input type="text" id="L_imagecode" name="imagecode"
+                                                                       required="" lay-verify="required"
+                                                                       autocomplete="off" class="layui-input"></div>
+                                <div class="layui-form-mid" style="padding: 0!important;"><img
+                                        src="/user/getimgcode?t=1" class="fly-imagecode"
+                                        style="height: 36px;width: 106px;"
+                                        alt="图片验证码"
+
+                                        onclick="src = '/user/getimgcode?t=' + (new Date()).getTime();">
+                                </div>
+                            </div>
+                            <div class="layui-form-item" style="position: relative; left: -10px; height: 32px;">
+                                <input type="checkbox" name="remember" id="remember" lay-skin="primary" title=""
+                                       checked="">
+                                <div class="layui-unselect layui-form-checkbox layui-form-checked"
+                                     lay-skin="primary"><i class="layui-icon layui-icon-ok"></i></div>
+                                <label for="remember"
+                                       style="position: relative; top: 4px; left: 5px; color: #333;">记住我</label>
+                            </div>
+                            <div class="layui-form-item">
+                                <a class="layui-btn" id="login_btn">立即登录</a>
+                                <span style="padding-left:20px;">
+                                        <a href="/user/forget">忘记密码？</a>
+                                    </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block js %}
-    <script>
-        $(function () {
-            layer.msg('登录', {icon: 1});
-        });
-    </script>
+    <script src="/static/js/page/login.js?t={% now "YmdHms" %}"></script>
 {% endblock %}

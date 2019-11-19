@@ -4,6 +4,10 @@ $(function () {
         // 表单数据格式化
         var formData = $('#reg_form').serializeObject();
         formData['r'] = Math.random();
+        if (formData.pass.length < 6) {
+            layer.msg('密码长度不得小于6', {icon: 0});
+            return false;
+        }
         if (formData.pass != formData.repass) {
             layer.msg('两次输入密码不一致', {icon: 0});
             return false;
