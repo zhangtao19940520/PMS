@@ -1,7 +1,7 @@
 $(function () {
     $('#login_btn').click(function () {
         var formData = $('#login_form').serializeObject();
-        console.log(formData);
+        // console.log(formData);
         if (formData.loginName.trim().length == 0) {
             layer.msg('请输入手机/邮箱', {icon: 0});
             return false;
@@ -38,4 +38,17 @@ $(function () {
             }
         });
     });
+
+    // $(document).keydown(function (event) {
+    //
+    //     console.log(event.keyCode);
+    // });
+});
+
+$(document).keyup(function (event) {
+    console.log(event.keyCode);
+    if (event.keyCode == 13) {
+        //这里填写你要做的事件
+        $('#login_btn').click();
+    }
 });

@@ -52,9 +52,9 @@ body {
     padding-left: 25px;
 }
 
-.layui-nav-item {
-    margin-left: 10px;
-}
+/*.layui-nav-item {*/
+/*    margin-left: 10px;*/
+/*}*/
 
 .fly-footer {
     margin: 50px 0 0;
@@ -132,4 +132,19 @@ body {
 
 .fly-header .layui-nav .layui-this:after, .fly-header .layui-nav .layui-nav-bar, .fly-header .fly-nav-user .layui-nav-more, .fly-html-layui .fly-nav-avatar .layui-nav-more {
     display: none !important;
+}
+
+.fly-user-main > .layui-nav {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+    height: 100%;
+    padding: 10px 0;
+}
+
+body .fly-user-main {
+    position: relative;
+    min-height: 600px;
+    margin-top: 80px;
 }

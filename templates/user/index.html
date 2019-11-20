@@ -2,16 +2,12 @@
 {% block title %}首页{% endblock %}
 {% block css %}
     <style>
-        body {
-            background: #ccc;
-        }
+
     </style>
 {% endblock %}
 
 {% block content %}
-    <div class="fly-panel fly-panel-user" pad20="">
-        <h1>--index--</h1>
-    </div>
+    {% include 'layout/left.html' %}
 {% endblock %}
 
 {% block js %}
