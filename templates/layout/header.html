@@ -25,10 +25,32 @@
         </li>
         <li class="layui-nav-item"><a href="">社区</a></li>
     </ul>
-    <ul class="layui-nav fly-nav-user">
-        <li class="layui-nav-item"><a class="layui-icon layui-icon-friends" href="/user/login"></a></li>
-        <li class="layui-nav-item"><a href="/user/login">登入</a></li>
-        <li class="layui-nav-item"><a href="/user/register">注册</a></li>
-        <span class="layui-nav-bar"></span>
-    </ul>
+
+
+    {% if request.session.user_info %}
+        <ul class="layui-nav fly-nav-user">
+            <li class="layui-nav-item">
+                <a class="fly-nav-avatar" href="/" id="LAY_header_avatar">
+                    <cite class="layui-hide-xs">{{ request.session.user_info }}</cite>
+                    <img src="https://cdn.layui.com/avatar/14971320.jpg?t=1525411052638"/>
+                    <span class="layui-nav-more"></span>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">选项1</a></dd>
+                    <dd><a href="">选项2</a></dd>
+                    <hr>
+                    <dd><a href="/user/logout">退出登录</a></dd>
+                </dl>
+            </li>
+        </ul>
+    {% else %}
+        <ul class="layui-nav fly-nav-user">
+            <li class="layui-nav-item"><a class="layui-icon layui-icon-friends" href="/user/login"></a></li>
+            <li class="layui-nav-item"><a href="/user/login">登入</a></li>
+            <li class="layui-nav-item"><a href="/user/register">注册</a></li>
+            <span class="layui-nav-bar"></span>
+        </ul>
+    {% endif %}
+
+
 </div>

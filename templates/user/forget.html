@@ -1,0 +1,62 @@
+{% extends 'layout/layout.html' %}
+{% block title %}忘记密码{% endblock %}
+{% block css %}
+    <style>
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="fly-panel fly-panel-user" pad20="">
+        <div class="layui-tab layui-tab-brief" lay-filter="user">
+            <ul class="layui-tab-title">
+                <li><a href="/user/login">登入</a></li>
+                <li class="layui-this">找回密码</li>
+            </ul>
+            <div class="layui-form layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
+                <div class="layui-tab-item layui-show">
+                    <div class="layui-form layui-form-pane">
+                        <form method="post" id="form_forget">
+                            <div class="layui-form-item"><label for="email" class="layui-form-label">邮箱</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" id="email" name="email" required=""
+                                           lay-verify="email" autocomplete="off"
+                                           class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item"><label for="imagecode" class="layui-form-label">图形码</label>
+                                <div class="layui-input-inline"><input type="text" id="imagecode" name="imagecode"
+                                                                       required="" lay-verify="required"
+                                                                       autocomplete="off" class="layui-input">
+                                </div>
+                                <div class="layui-form-mid" style="padding: 0!important;"><img
+                                        src="/user/getimgcode?t=1" class="fly-imagecode"
+                                        style="height: 36px;width: 106px;"
+                                        alt="图片验证码"
+                                        onclick="src = '/user/getimgcode?t=' + (new Date()).getTime();">
+                                </div>
+                            </div>
+                            <div class="layui-form-item"><label for="vercode" class="layui-form-label">验证码</label>
+                                <div class="layui-input-inline"><input type="text" id="vercode" name="vercode"
+                                                                       required="" lay-verify="required"
+                                                                       placeholder="请输入邮件验证码" autocomplete="off"
+                                                                       class="layui-input"></div>
+                                <div class="layui-form-mid" style="padding: 0!important;">
+                                    <button type="button" class="layui-btn layui-btn-normal" id="getvercode">
+                                        获取验证码
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <a class="layui-btn" id="forget_btn">提交</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="/static/js/page/forget.js?t={% now "YmdHms" %}"></script>
+{% endblock %}

@@ -8,8 +8,10 @@ from user import views
 
 urlpatterns = [
     path(r'login', views.login),
+    path(r'logout', views.logout),
     path(r'register', views.register),
     path(r'terms', views.terms),
+    path(r'forget', views.forget),
     path(r'getimgcode', views.getimagecode),
     path(r'getvercode', views.getvercode),
 ]

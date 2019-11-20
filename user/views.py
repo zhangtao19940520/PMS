@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from utils.common import *
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from io import BytesIO
@@ -6,11 +6,12 @@ from django.views.decorators.http import require_http_methods
 from django.core.cache import cache
 from user import models
 from django.db.models import Q
+from utils.authorize import check_login
 
 
 # Create your views here.
 
-
+@check_login
 def index(request):
     """
     首页
@@ -127,7 +128,7 @@ def login(request):
         if not user_info:
             ret_val.error = True
             ret_val.code = 2
-            ret_val.message = '该账号不存在，请确认！'
+            ret_val.message = '该邮箱不存在，请确认！'
             return JsonResponse(ret_val.dict())
         if user_info.password != Common.sha1_encryption(passwd):
             ret_val.error = True
@@ -147,6 +148,17 @@ def login(request):
         # 保存用户信息到session
         request.session['user_info'] = user_info
         return res
+
+
+def logout(request):
+    """
+    注销
+    :param request:
+    :return:
+    """
+    request.session.clear()
+
+    return redirect('/user/login')
 
 
 def getimagecode(request):
@@ -199,7 +211,7 @@ def getvercode(request):
     mailto_list = [email]
     mail = SendEmail()
     sub = '你好：{0}'.format(code)
-    email_msg = "<h1>{0}</h1><p>您正在登录【如期-项目跟踪系统】，唯一标识码是{0}，10分钟内有效。如非本人操作，可不予理会。</p>".format(code)
+    email_msg = "<h1>{0}</h1><p>您正在操作【如期-项目跟踪系统】，唯一标识码是{0}，10分钟内有效。如非本人操作，可不予理会。</p>".format(code)
     if mail.sendTxtMail(mailto_list, sub, email_msg, is_html=True):
         ret_val.message = '验证码已发送至邮箱，10分钟内有效。'
         cache.set(email, code, 10 * 60)
@@ -216,3 +228,57 @@ def terms(request):
     :return:
     """
     return render(request, 'user/terms.html')
+
+
+def forget(request):
+    """
+    忘记密码
+    :param request:
+    :return:
+    """
+    if request.method == 'GET':
+        return render(request, 'user/forget.html')
+    else:
+        ret_val = ReturnValue()
+        # 初始默认返回错误
+        ret_val.error = True
+        ret_val.code = 2
+        # 请求数据
+        request_data = request.POST
+        email = request_data.get('email', None)
+        imagecode = request_data.get('imagecode', None)
+        vercode = request_data.get('vercode', None)
+        # 参数验证
+        if not email or not imagecode or not vercode:
+            ret_val.message = '所有参数均为必填，请如实填写'
+            return JsonResponse(ret_val.dict())
+        if imagecode != request.session['ImageCode']:
+            ret_val.message = '请输入正确的图片验证码！'
+            return JsonResponse(ret_val.dict())
+        if not cache.has_key(email):
+            ret_val.message = '请先获取验证码！'
+            return JsonResponse(ret_val.dict())
+        if cache.get(email) != vercode:
+            ret_val.message = '验证码错误，请确认！'
+            return JsonResponse(ret_val.dict())
+        user_info = models.UserInfo.objects.filter(email=email).first()
+        if not user_info:
+            ret_val.message = '该邮箱不存在，请先注册！'
+            return JsonResponse(ret_val.dict())
+        else:
+            # new_pas = Common().get_num_code(6)
+            new_pas = ValidateCode().getCode(8)
+            if models.UserInfo.objects.filter(email=email).update(password=Common.sha1_encryption(new_pas)):
+                mailto_list = [email]
+                mail = SendEmail()
+                sub = '您好：{0}'.format(new_pas)
+                email_msg = '<h1>{0}</h1>您的【如期-项目跟踪系统】的登录密码已经重置为：{0}。请尽快登录用户中心更改密码！'.format(new_pas)
+                if mail.sendTxtMail(mailto_list, sub, email_msg, is_html=True):
+                    ret_val.error = False
+                    ret_val.code = 1
+                    ret_val.message = '密码重置成功，临时密码【{0}】已发送至邮箱！请尽快登录用户中心进行修改！'.format(new_pas)
+                else:
+                    ret_val.message = '系统异常，请稍后重试。'
+            else:
+                ret_val.message = '密码重置失败，请稍后再试。'
+        return JsonResponse(ret_val.dict())

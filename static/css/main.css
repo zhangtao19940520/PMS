@@ -96,3 +96,40 @@ body {
 .fly-imagecode {
     cursor: pointer;
 }
+
+.fly-header .layui-nav {
+    padding: 0;
+    background: none;
+}
+
+.fly-nav-user {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.fly-nav-avatar img {
+    width: 36px;
+    height: 36px;
+    margin-left: 10px;
+    border-radius: 100%;
+}
+
+.fly-header .fly-nav-user .layui-nav-child {
+    left: auto;
+    right: 0;
+    width: 120px;
+    min-width: 0;
+}
+
+.fly-nav-user .layui-nav-child {
+    text-align: center;
+}
+
+.fly-header .fly-nav-user li .fly-nav-avatar {
+    padding-right: 0;
+}
+
+.fly-header .layui-nav .layui-this:after, .fly-header .layui-nav .layui-nav-bar, .fly-header .fly-nav-user .layui-nav-more, .fly-html-layui .fly-nav-avatar .layui-nav-more {
+    display: none !important;
+}
