@@ -1,0 +1,37 @@
+.avatar-add {
+    position: relative;
+    width: 373px;
+    height: 373px;
+    background-color: #F2F2F5;
+}
+
+.avatar-add p {
+    position: absolute;
+    top: 70px;
+    width: 100%;
+    margin-top: 10px;
+    font-size: 12px;
+    text-align: center;
+    color: #999;
+}
+
+.avatar-add .upload-img {
+    position: absolute;
+    left: 50%;
+    top: 35px;
+    margin: 0 0 0 -56px;
+}
+
+.avatar-add img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 168px;
+    height: 168px;
+    margin: -50px 0 0 -84px;
+    border-radius: 100%;
+}
+
+.layui-form-pane .layui-form-checkbox {
+    margin: 8px 0 8px 10px;
+}

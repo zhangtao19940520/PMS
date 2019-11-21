@@ -32,7 +32,7 @@
             <li class="layui-nav-item">
                 <a class="fly-nav-avatar" href="/" id="LAY_header_avatar">
                     <cite class="layui-hide-xs">{{ request.session.user_info }}</cite>
-                    <img src="https://cdn.layui.com/avatar/14971320.jpg?t=1525411052638"/>
+                    <img src="{{ request.session.user_info.header_avatar }}"/>
                     <span class="layui-nav-more"></span>
                 </a>
                 <dl class="layui-nav-child">

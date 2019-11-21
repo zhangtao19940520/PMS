@@ -7,6 +7,7 @@ from django.core.cache import cache
 from user import models
 from django.db.models import Q
 from utils.authorize import check_login
+from utils import enums
 
 
 # Create your views here.
@@ -18,7 +19,14 @@ def index(request):
     :param request:
     :return:
     """
-    return render(request, 'user/index.html')
+    # 从session中获取登录邮箱
+    user_info_email = request.session.get('user_info')
+    user_info = models.UserInfo.objects.filter(email=user_info_email).first()
+    return render(request, 'user/index.html', {
+        'user_info': user_info,
+        'TechnologyStack': [{'id': i[0], 'name': i[1]} for i in enums.TechnologyStack],
+        'user_technology_stack': [int(i) for i in user_info.technology_stack.split(',')]
+    })
 
 
 def register(request):
@@ -282,3 +290,29 @@ def forget(request):
             else:
                 ret_val.message = '密码重置失败，请稍后再试。'
         return JsonResponse(ret_val.dict())
+
+
+@check_login
+@require_http_methods(['POST'])
+def edit_user(request):
+    """
+    修改个人资料
+    :return:
+    """
+    user_info_email = request.session.get('user_info')
+    ret_val = ReturnValue()
+    post_data = request.POST
+    user_info_edit = {
+        'mobile': post_data.get('mobile', ''),
+        'real_name': post_data.get('real_name', ''),
+        'user_sex': post_data.get('user_sex', 1),
+        'alipay_account': post_data.get('alipay_account', ''),
+        'technology_stack': post_data.get('technology_stack', ''),
+    }
+    if models.UserInfo.objects.filter(email=user_info_email).update(**user_info_edit):
+        ret_val.message = '用户信息修改成功！'
+    else:
+        ret_val.error = True
+        ret_val.code = 2
+        ret_val.message = '用户信息修改失败，请稍后再试。'
+    return JsonResponse(ret_val.dict())

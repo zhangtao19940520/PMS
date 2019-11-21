@@ -63,6 +63,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            # 'libraries': {
+            #     "left_is_active": "user.templatetags.simple_tags",
+            # },
         },
     },
 ]

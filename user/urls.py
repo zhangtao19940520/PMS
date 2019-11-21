@@ -12,6 +12,7 @@ urlpatterns = [
     path(r'register', views.register),
     path(r'terms', views.terms),
     path(r'forget', views.forget),
+    path(r'edit_user', views.edit_user),
     path(r'getimgcode', views.getimagecode),
     path(r'getvercode', views.getvercode),
 ]

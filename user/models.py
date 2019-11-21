@@ -18,6 +18,9 @@ class UserInfo(models.Model):
     alipay_account = models.CharField(default='', max_length=50, verbose_name='支付宝账号')
     is_enable = models.BooleanField(default=True, verbose_name='是否启用')
     id_card = models.CharField(default='', max_length=18, verbose_name='身份证号码')
+    header_avatar = models.CharField(default='/static/images/header_avatar.jpg', max_length=200, verbose_name='用户头像')
+    user_sex = models.SmallIntegerField(default=1, verbose_name='性别(1:男；2：女)')
+    technology_stack = models.CharField(default='', max_length=180, verbose_name='擅长的技术栈')
     last_login_time = models.DateTimeField(default=timezone.now, verbose_name='上一次登录时间')
     create_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
 

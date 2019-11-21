@@ -148,3 +148,23 @@ body .fly-user-main {
     min-height: 600px;
     margin-top: 80px;
 }
+
+.fly-user-main > .fly-panel {
+    min-height: 575px;
+    margin: 0 0 10px 215px;
+}
+
+.fly-panel[pad20] {
+    padding: 20px;
+}
+
+.fly-panel-user[pad20] {
+    padding-top: 5px;
+}
+
+.fly-panel {
+    margin-bottom: 15px;
+    border-radius: 2px;
+    background-color: #fff;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
+}
