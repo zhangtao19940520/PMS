@@ -55,6 +55,30 @@ def edit_user(request):
     return JsonResponse(ret_val.dict())
 
 
+@check_login
+@require_http_methods(['POST'])
+def edit_user_header(request):
+    """
+    修改头像
+    :return:
+    """
+    user_info_email = request.session.get('user_info')
+    ret_val = ReturnValue()
+    post_data = request.POST
+    new_header = post_data.get('header_avatar', '/static/images/header_avatar.jpg')
+    if models.UserInfo.objects.filter(email=user_info_email).update(header_avatar=new_header):
+        # 修改session中的头像
+        user_info = request.session['user_info']
+        user_info.header_avatar = new_header
+        request.session['user_info'] = user_info
+        ret_val.message = '头像修改成功！'
+    else:
+        ret_val.error = True
+        ret_val.code = 2
+        ret_val.message = '头像修改失败，请稍后再试。'
+    return JsonResponse(ret_val.dict())
+
+
 def register(request):
     """
     注册页面及操作

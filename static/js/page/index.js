@@ -31,12 +31,33 @@ $(function () {
     var uploadInst = upload.render({
         elem: '.upload-img' //绑定元素
         , url: '/upload/' //上传接口
+        , size: 50
         , done: function (res) {
-            console.log(res);
             //上传完毕回调
             // console.log(res);
             if (res.error == 0) {
-                $('#user_header_img').attr("src", res.url);
+                $.ajax({
+                    url: '/user/edit_user_header',
+                    type: 'POST',
+                    data: {
+                        'header_avatar': res.url,
+                        'r': Math.random()
+                    },
+                    beforeSend: function () {
+                        layer.load(3);
+                    },
+                    success: function (response) {
+                        layer.closeAll();
+                        layer.msg(response.message, {icon: response.code});
+                        if (!response.error) {
+                            $('.user_header_img').attr("src", res.url);
+                        }
+                    },
+                    error: function () {
+                        layer.msg('修改信息失败，请稍后再试！', {icon: 2});
+                    }
+                });
+
             } else {
                 layer.msg(res.message, {icon: 2});
             }
