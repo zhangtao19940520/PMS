@@ -105,3 +105,4 @@ venv.bak/
 /.idea/
 migrations/
 utils/config.py
+/static/media/2019/11/
