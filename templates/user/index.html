@@ -13,7 +13,7 @@
                 <li class="layui-this" lay-id="info">我的资料</li>
                 <li lay-id="avatar" class="">头像</li>
                 <li lay-id="pass">密码</li>
-                <li lay-id="bind">帐号绑定</li>
+                {#                <li lay-id="bind">帐号绑定</li>#}
             </ul>
             <div class="layui-tab-content" style="padding: 20px 0;">
                 <div class="layui-form layui-form-pane layui-tab-item layui-show">
@@ -88,7 +88,7 @@
                         <div class="avatar-add"><p>建议尺寸168*168，支持jpg、png、gif，最大不能超过50KB</p>
                             <button type="button" class="layui-btn upload-img"><i class="layui-icon"></i>上传头像</button>
                             <input class="layui-upload-file" type="file" accept="" name="file"> <img
-                                    src="{{ request.session.user_info.header_avatar }}"></div>
+                                    src="{{ request.session.user_info.header_avatar }}" class="user_header_img"></div>
                     </div>
                 </div>
                 <div class="layui-form layui-form-pane layui-tab-item">
