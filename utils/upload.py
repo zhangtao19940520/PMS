@@ -29,8 +29,8 @@ def upload_image(request, dir_name='media'):
 def upload_generation_dir(dir_name):
     today = dt.datetime.today()
     dir_name = dir_name + '/%d/%d/' % (today.year, today.month)
-    if not os.path.exists(settings.MEDIA_ROOT + dir_name):
-        os.makedirs(settings.MEDIA_ROOT + dir_name)
+    if not os.path.exists(settings.STATICFILES_DIRS + dir_name):
+        os.makedirs(settings.STATICFILES_DIRS + dir_name)
     return dir_name
 
 
