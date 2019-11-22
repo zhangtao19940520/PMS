@@ -26,7 +26,8 @@ def index(request):
     return render(request, 'user/index.html', {
         'user_info': user_info,
         'TechnologyStack': [{'id': i[0], 'name': i[1]} for i in enums.TechnologyStack],
-        'user_technology_stack': [int(i) for i in user_info.technology_stack.split(',')]
+        'user_technology_stack': [] if user_info.technology_stack == '' else [int(i) for i in
+                                                                              user_info.technology_stack.split(',')]
     })
 
 
