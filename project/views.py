@@ -12,3 +12,23 @@ def market(request):
     :return:
     """
     return render(request, 'project/market.html')
+
+
+@check_login
+def manage(request):
+    """
+    项目管理
+    :param request:
+    :return:
+    """
+    return render(request, 'project/manage.html')
+
+
+@check_login
+def func(request):
+    """
+    项目管理
+    :param request:
+    :return:
+    """
+    return render(request, 'project/func.html')

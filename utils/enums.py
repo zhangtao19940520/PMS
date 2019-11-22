@@ -3,7 +3,7 @@
 __author__ = "JentZhang"
 
 # 所有技术栈
-TechnologyStack = [
+TechnologyStack = (
     (1, 'Html/Css'),
     (2, 'JavaScript'),
     (3, 'Java'),
@@ -35,4 +35,20 @@ TechnologyStack = [
     (29, 'Windows'),
     (30, 'Linux'),
     (31, 'OS X'),
-]
+)
+
+# 项目状态
+ProjectStatus = (
+    (1, '已创建待审核'),
+    (2, '审核通过待开发'),
+    (3, '开发中'),
+    (4, '验收通过已完结'),
+)
+
+# 项目功能状态
+ProjectFuncStatus = (
+    (1, '已创建'),
+    (2, '开发中'),
+    (3, '待验收'),
+    (4, '已完成'),
+)

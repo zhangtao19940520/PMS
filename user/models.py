@@ -14,7 +14,7 @@ class UserInfo(models.Model):
     password = models.CharField(default='', max_length=64, verbose_name='登录密码')
     real_name = models.CharField(default='', max_length=10, verbose_name='真实姓名')
     mobile = models.CharField(default='', max_length=11, verbose_name='手机号码')
-    email = models.EmailField(default='', max_length=50, verbose_name='邮箱')
+    email = models.EmailField(default='', max_length=50, unique=True, verbose_name='邮箱')
     alipay_account = models.CharField(default='', max_length=50, verbose_name='支付宝账号')
     is_enable = models.BooleanField(default=True, verbose_name='是否启用')
     id_card = models.CharField(default='', max_length=18, verbose_name='身份证号码')

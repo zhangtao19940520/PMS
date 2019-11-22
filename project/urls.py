@@ -7,5 +7,7 @@ from django.urls import path
 from project import views
 
 urlpatterns = [
-    path(r'market', views.market),
+    path(r'p_market', views.market),
+    path(r'p_manage', views.manage),
+    path(r'p_func', views.func),
 ]

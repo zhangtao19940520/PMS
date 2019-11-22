@@ -8,6 +8,7 @@ from user import models
 from django.db.models import Q
 from utils.authorize import check_login
 from utils import enums
+import django.utils.timezone as timezone
 
 
 # Create your views here.
@@ -245,6 +246,8 @@ def login(request):
             res.set_cookie("loginName", '')
         # 保存用户信息到session
         request.session['user_info'] = user_info
+        # 更新最近一次登录时间
+        models.UserInfo.objects.filter(email=email_or_mobile).update(last_login_time=timezone.now())
         return res
 
 
