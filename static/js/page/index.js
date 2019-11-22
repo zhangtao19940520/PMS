@@ -66,4 +66,43 @@ $(function () {
             //请求异常回调
         }
     });
+    // 修改密码
+    $('#edit_pass').click(function () {
+        var now_pass = $('#L_nowpass').val(),
+            pass = $('#L_pass').val(),
+            re_pass = $('#L_repass').val();
+        if (pass.length < 6) {
+            layer.msg('新密码长度最低6位。', {icon: 0});
+            return false;
+        }
+        if (pass != re_pass) {
+            layer.msg('新密码与确认密码不一致。', {icon: 0});
+            return false;
+        }
+        $.ajax({
+            url: '/user/edit_pass',
+            type: 'POST',
+            data: {
+                now_pass: now_pass,
+                new_pass: pass,
+                re_pass: re_pass
+            },
+            beforeSend: function () {
+                layer.load(3);
+            },
+            success: function (res) {
+                layer.closeAll();
+                layer.msg(res.message, {icon: res.code});
+                if (!res.error) {
+                    setTimeout(function () {
+                        location.href = '/user/logout';
+                    }, 1500)
+                }
+            },
+            error: function () {
+                layer.msg('密码修改失败，请稍后再试。', {icon: 2});
+            }
+        });
+
+    });
 });

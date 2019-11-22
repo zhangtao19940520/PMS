@@ -13,6 +13,7 @@ urlpatterns = [
     path(r'terms', views.terms),
     path(r'forget', views.forget),
     path(r'edit_user', views.edit_user),
+    path(r'edit_pass', views.edit_pass),
     path(r'edit_user_header', views.edit_user_header),
     path(r'getimgcode', views.getimagecode),
     path(r'getvercode', views.getvercode),

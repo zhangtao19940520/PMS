@@ -79,6 +79,46 @@ def edit_user_header(request):
     return JsonResponse(ret_val.dict())
 
 
+@check_login
+@require_http_methods(['POST'])
+def edit_pass(request):
+    """
+    修改密码
+    :param request:
+    :return:
+    """
+    user_info_email = request.session.get('user_info')
+    user_info = models.UserInfo.objects.get(email=user_info_email)
+    ret_val = ReturnValue()
+    ret_val.error = True
+    ret_val.code = 2
+    # 获取请求参数
+    post_data = request.POST
+    now_pass = post_data.get('now_pass', None)
+    new_pass = post_data.get('new_pass', None)
+    re_pass = post_data.get('re_pass', None)
+    # 验证参数
+    if not now_pass or not new_pass or not re_pass:
+        ret_val.message = '所有参数均为必填！'
+        return JsonResponse(ret_val.dict())
+    if new_pass != re_pass:
+        ret_val.message = '新密码与确认密码不一致！'
+        return JsonResponse(ret_val.dict())
+    if user_info.password != Common.sha1_encryption(now_pass):
+        ret_val.message = '旧密码不正确，请确认！'
+        return JsonResponse(ret_val.dict())
+    # 修改密码
+    if models.UserInfo.objects.filter(email=user_info_email).update(password=Common.sha1_encryption(new_pass)):
+        ret_val.error = False
+        ret_val.code = 1
+        ret_val.message = '密码修改成功！请重新登陆'
+    else:
+        ret_val.error = True
+        ret_val.code = 2
+        ret_val.message = '密码修改失败，请稍后再试。'
+    return JsonResponse(ret_val.dict())
+
+
 def register(request):
     """
     注册页面及操作
