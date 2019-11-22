@@ -197,7 +197,7 @@ def register(request):
 
 def login(request):
     """
-    注册页面及操作
+    登录页面及操作
     :param request:
     :return:
     """
