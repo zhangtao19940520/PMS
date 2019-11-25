@@ -1,0 +1,19 @@
+{% extends 'layout/layout.html' %}
+{% block title %}用户中心{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="/static/css/page/index.css">
+{% endblock %}
+
+{% block content %}
+    {% include 'layout/left.html' %}
+
+    <div class="fly-panel fly-panel-user" pad20="">
+        <div class="layui-tab layui-tab-brief" lay-filter="user">
+            用户中心
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="/static/js/page/center.js?t={% now 'YmdHis' %}"></script>
+{% endblock %}

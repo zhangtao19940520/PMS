@@ -5,6 +5,11 @@
             <i class="layui-icon"></i> 用户中心
         </a>
     </li>
+    <li class="layui-nav-item {% left_is_active request.path_info '/user/sets' %}">
+        <a href="/user/sets">
+            <i class="layui-icon layui-icon-set"></i> 基本设置
+        </a>
+    </li>
     <li class="layui-nav-item {% left_is_active request.path_info '/project/p_manage' %}">
         <a href="/project/p_manage">
             <i class="layui-icon layui-icon-app"></i> 项目管理

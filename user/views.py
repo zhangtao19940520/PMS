@@ -14,21 +14,34 @@ import django.utils.timezone as timezone
 # Create your views here.
 
 @check_login
-def index(request):
+def sets(request):
     """
-    首页
+    基本设置
     :param request:
     :return:
     """
     # 从session中获取登录邮箱
     user_info_email = request.session.get('user_info')
     user_info = models.UserInfo.objects.filter(email=user_info_email).first()
-    return render(request, 'user/index.html', {
+    return render(request, 'user/sets.html', {
         'user_info': user_info,
         'TechnologyStack': [{'id': i[0], 'name': i[1]} for i in enums.TechnologyStack],
         'user_technology_stack': [] if user_info.technology_stack == '' else [int(i) for i in
                                                                               user_info.technology_stack.split(',')]
     })
+
+
+@check_login
+def center(request):
+    """
+    用户中心
+    :param request:
+    :return:
+    """
+    # 从session中获取登录邮箱
+    user_info_email = request.session.get('user_info')
+    user_info = models.UserInfo.objects.filter(email=user_info_email).first()
+    return render(request, 'user/center.html')
 
 
 @check_login

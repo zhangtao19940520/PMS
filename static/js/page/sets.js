@@ -17,7 +17,7 @@ $(function () {
                     layer.msg(res.message, {icon: res.code});
                     if (!res.error) {
                         setTimeout(function () {
-                            location.href = '/';
+                            location.href = '/user/sets';
                         }, 1500)
                     }
                 },
