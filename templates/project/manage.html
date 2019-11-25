@@ -11,15 +11,18 @@
     <div class="fly-panel fly-panel-user" pad20="">
         <div class="layui-tab layui-tab-brief" lay-filter="user">
             <ul class="layui-tab-title" id="LAY_mine">
-                <li class="layui-this" lay-id="info">参与的项目</li>
-                <li lay-id="avatar" class="">创建的项目</li>
+                <li class="layui-this" lay-id="with_project">参与的项目</li>
+                <li lay-id="has_create" class="">创建的项目</li>
+                <li lay-id="new_project" class="">创建新项目</li>
             </ul>
             <div class="layui-tab-content" style="padding: 20px 0;">
                 <div class="layui-form layui-form-pane layui-tab-item layui-show">
                     参与的项目
                 </div>
                 <div class="layui-form layui-form-pane layui-tab-item">
-                    创建的项目
+                </div>
+                <div class="layui-form layui-form-pane layui-tab-item">
+                    <button class="layui-btn layui-btn-normal" id="btn_create_my_project">创建我的项目</button>
                 </div>
             </div>
         </div>
@@ -27,9 +30,5 @@
 {% endblock %}
 
 {% block js %}
-    <script>
-        $(function () {
-            layer.msg('项目管理', {icon: 1});
-        });
-    </script>
+    <script src="/static/js/page/project/manage.js"></script>
 {% endblock %}
