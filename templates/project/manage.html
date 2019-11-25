@@ -9,7 +9,20 @@
 {% block content %}
     {% include 'layout/left.html' %}
     <div class="fly-panel fly-panel-user" pad20="">
-
+        <div class="layui-tab layui-tab-brief" lay-filter="user">
+            <ul class="layui-tab-title" id="LAY_mine">
+                <li class="layui-this" lay-id="info">参与的项目</li>
+                <li lay-id="avatar" class="">创建的项目</li>
+            </ul>
+            <div class="layui-tab-content" style="padding: 20px 0;">
+                <div class="layui-form layui-form-pane layui-tab-item layui-show">
+                    参与的项目
+                </div>
+                <div class="layui-form layui-form-pane layui-tab-item">
+                    创建的项目
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
 

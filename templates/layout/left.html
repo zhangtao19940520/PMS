@@ -1,5 +1,5 @@
 {% load simple_tags %}
-<ul class="layui-nav layui-nav-tree layui-inline" lay-filter="user">
+<ul class="layui-nav layui-nav-tree layui-inline left_menu" lay-filter="user">
     <li class="layui-nav-item {% left_is_active request.path_info '/' %}">
         <a href="/">
             <i class="layui-icon"></i> 用户中心
@@ -12,7 +12,7 @@
     </li>
     <li class="layui-nav-item {% left_is_active request.path_info '/project/p_manage' %}">
         <a href="/project/p_manage">
-            <i class="layui-icon layui-icon-app"></i> 项目管理
+            <i class="layui-icon layui-icon-app"></i> 我的项目
         </a>
     </li>
     <li class="layui-nav-item {% left_is_active request.path_info '/project/p_func' %}">

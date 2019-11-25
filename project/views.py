@@ -17,7 +17,7 @@ def market(request):
 @check_login
 def manage(request):
     """
-    项目管理
+    我的项目
     :param request:
     :return:
     """
@@ -27,7 +27,7 @@ def manage(request):
 @check_login
 def func(request):
     """
-    项目管理
+    功能开发
     :param request:
     :return:
     """
