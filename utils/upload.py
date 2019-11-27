@@ -56,4 +56,12 @@ def file_upload(files, dir_name):
     path_file = os.path.join(path, file_name)
     file_url = settings.STATIC_URL + relative_path_file + file_name
     open(path_file, 'wb').write(files.file.read())
-    return {"error": 0, "url": file_url}
+    res = {
+        "code": 0,  # 0表示成功，其它失败
+        "msg": '',  # 提示信息 // 一般上传失败后返回
+        "data": {
+            "src": file_url,
+            "title": ''  # 可选
+        }
+    }
+    return res

@@ -12,7 +12,7 @@
         <div class="layui-tab layui-tab-brief" lay-filter="user">
             <ul class="layui-tab-title" id="LAY_mine">
                 <li class="layui-this" lay-id="with_project">参与的项目</li>
-                <li lay-id="has_create" class="">创建的项目</li>
+                <li lay-id="has_create" class="">已创建的项目</li>
                 <li lay-id="new_project" class="">创建新项目</li>
             </ul>
             <div class="layui-tab-content" style="padding: 20px 0;">
@@ -22,7 +22,48 @@
                 <div class="layui-form layui-form-pane layui-tab-item">
                 </div>
                 <div class="layui-form layui-form-pane layui-tab-item">
-                    <button class="layui-btn layui-btn-normal" id="btn_create_my_project">创建我的项目</button>
+                    <div class="layui-form layui-form-pane">
+                        <form id="create_project_form">
+                            <div class="layui-form-item">
+                                <label for="pj_title" class="layui-form-label">项目标题</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" id="pj_title" name="pj_title" value=""
+                                           required="" lay-verify="required" class="layui-input">
+                                </div>
+                                <div class="layui-form-mid layui-word-aux">项目的标题，必填，简洁明了，不超过20字</div>
+                            </div>
+                            <div class="layui-form-item layui-form-text">
+                                <label for="pj_sub" class="layui-form-label">项目简介</label>
+                                <div class="layui-input-block">
+                                    <textarea placeholder="简单介绍一下你的项目，可为空" id="pj_sub" name="pj_sub"
+                                              class="layui-textarea" style="height: 80px;"></textarea>
+                                </div>
+                            </div>
+                            <div class="layui-form-item layui-form-text">
+                                <label for="pj_content" class="layui-form-label">项目描述</label>
+                                <div class="layui-input-block">
+                                    <textarea placeholder="项目的详细描述，必填" id="pj_content" name="pj_content"
+                                              required="" lay-verify="required"
+                                              class="layui-textarea"></textarea>
+                                </div>
+                            </div>
+                            <div class="layui-form-item"><label for="imagecode" class="layui-form-label">图形码</label>
+                                <div class="layui-input-inline"><input type="text" id="imagecode" name="imagecode"
+                                                                       required="" lay-verify="required"
+                                                                       autocomplete="off" class="layui-input"></div>
+                                <div class="layui-form-mid" style="padding: 0!important;">
+                                    <img src="/user/getimgcode?t=1" class="fly-imagecode"
+                                         style="height: 36px;width: 106px;"
+                                         alt="图片验证码"
+                                         onclick="src = '/user/getimgcode?t=' + (new Date()).getTime();">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <a class="layui-btn layui-btn-normal" lay-filter="*" lay-submit
+                                   id="btn_create_my_project">创建我的项目</a>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -30,5 +71,5 @@
 {% endblock %}
 
 {% block js %}
-    <script src="/static/js/page/project/manage.js"></script>
+    <script src="/static/js/page/project/manage.js?t={% now 'YmdHis' %}"></script>
 {% endblock %}

@@ -35,12 +35,12 @@ $(function () {
         , done: function (res) {
             //上传完毕回调
             // console.log(res);
-            if (res.error == 0) {
+            if (res.code == 0) {
                 $.ajax({
                     url: '/user/edit_user_header',
                     type: 'POST',
                     data: {
-                        'header_avatar': res.url,
+                        'header_avatar': res.data.src,
                         'r': Math.random()
                     },
                     beforeSend: function () {
@@ -50,11 +50,11 @@ $(function () {
                         layer.closeAll();
                         layer.msg(response.message, {icon: response.code});
                         if (!response.error) {
-                            $('.user_header_img').attr("src", res.url);
+                            $('.user_header_img').attr("src", res.data.src,);
                         }
                     },
                     error: function () {
-                        layer.msg('修改信息失败，请稍后再试！', {icon: 2});
+                        layer.msg('修改头像失败，请稍后再试！', {icon: 2});
                     }
                 });
 
