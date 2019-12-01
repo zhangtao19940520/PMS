@@ -178,6 +178,33 @@ class Common(object):
             res += str(random.randint(1, 9))
         return res
 
+    @classmethod
+    def get_enum_val_by_str(cls, enums, str_msg):
+        """
+        获取指定枚举中指定值得value
+        :param enums:
+        :param str_msg:指定的枚举描述
+        :return:
+        """
+        try:
+            for i in enums:
+                if i[1] == str_msg:
+                    return i[0]
+                else:
+                    return -99
+        except Exception as e:
+            return -99
+
+    @classmethod
+    def str_to_int(cls, str_msg):
+        """
+        字符串转数字
+        """
+        try:
+            return int(str_msg)
+        except Exception as e:
+            return 0
+
 
 class SendEmail(object):
     """

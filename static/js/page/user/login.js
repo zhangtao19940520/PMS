@@ -34,15 +34,12 @@ $(function () {
                 }
             },
             error: function () {
+                layer.closeAll();
+                $('.fly-imagecode').click();
                 layer.msg('登录失败！请稍后再试', {icon: 2});
             }
         });
     });
-
-    // $(document).keydown(function (event) {
-    //
-    //     console.log(event.keyCode);
-    // });
 });
 
 $(document).keyup(function (event) {

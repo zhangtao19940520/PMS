@@ -21,7 +21,7 @@ class ProjectInfo(models.Model):
     pj_status = models.SmallIntegerField(default=1, choices=ProjectStatus, verbose_name='项目状态')
     pj_start_time = models.DateField(default=timezone.now().today, verbose_name='项目开始开发时间')
     pj_end_time = models.DateField(default=timezone.now().today, verbose_name='项目完结时间')
-    last_update_time = models.DateTimeField(default=timezone.now, verbose_name='上一次修改时间')
+    last_update_time = models.DateTimeField(auto_now=True, verbose_name='上一次修改时间')
     create_user = models.ForeignKey(to=UserInfo, to_field='user_id', on_delete=models.CASCADE, blank=True, null=True,
                                     default=None, verbose_name='创建用户')
     create_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')

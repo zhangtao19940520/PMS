@@ -28,7 +28,7 @@
                                 <label for="pj_title" class="layui-form-label">项目标题</label>
                                 <div class="layui-input-inline">
                                     <input type="text" id="pj_title" name="pj_title" value=""
-                                           required="" lay-verify="required" class="layui-input">
+                                           class="layui-input">
                                 </div>
                                 <div class="layui-form-mid layui-word-aux">项目的标题，必填，简洁明了，不超过20字</div>
                             </div>
@@ -36,20 +36,43 @@
                                 <label for="pj_sub" class="layui-form-label">项目简介</label>
                                 <div class="layui-input-block">
                                     <textarea placeholder="简单介绍一下你的项目，可为空" id="pj_sub" name="pj_sub"
-                                              class="layui-textarea" style="height: 80px;"></textarea>
+                                              class="layui-textarea" style="height: 60px;"></textarea>
                                 </div>
                             </div>
                             <div class="layui-form-item layui-form-text">
                                 <label for="pj_content" class="layui-form-label">项目描述</label>
                                 <div class="layui-input-block">
                                     <textarea placeholder="项目的详细描述，必填" id="pj_content" name="pj_content"
-                                              required="" lay-verify="required"
                                               class="layui-textarea"></textarea>
                                 </div>
                             </div>
+                            <div class="layui-form-item layui-form-text">
+                                <label class="layui-form-label">项目所需技术栈（可选）</label>
+                                <div class="layui-input-block layui-layer-border" style="padding: 10px;">
+                                    {% for i in TechnologyStack %}
+                                        <input type="checkbox" value="{{ i.id }}" name="pj_stack"
+                                               title="{{ i.name }}">
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label for="pj_except_fee" class="layui-form-label">预算金额</label>
+                                <div class="layui-input-inline">
+                                    <input type="number" id="pj_except_fee" name="pj_except_fee" value=""
+                                           class="layui-input" placeholder="￥">
+                                </div>
+                                <div class="layui-form-mid layui-word-aux">项目预算金额，仅仅只是一个预算，别当真...</div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label for="pj_except_day" class="layui-form-label">预算时间</label>
+                                <div class="layui-input-inline">
+                                    <input type="number" id="pj_except_day" name="pj_except_day" value=""
+                                           class="layui-input" placeholder="单位（天）">
+                                </div>
+                                <div class="layui-form-mid layui-word-aux">项目预算时间，仅仅只是一个预算，别当真...</div>
+                            </div>
                             <div class="layui-form-item"><label for="imagecode" class="layui-form-label">图形码</label>
                                 <div class="layui-input-inline"><input type="text" id="imagecode" name="imagecode"
-                                                                       required="" lay-verify="required"
                                                                        autocomplete="off" class="layui-input"></div>
                                 <div class="layui-form-mid" style="padding: 0!important;">
                                     <img src="/user/getimgcode?t=1" class="fly-imagecode"
@@ -59,8 +82,7 @@
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <a class="layui-btn layui-btn-normal" lay-filter="*" lay-submit
-                                   id="btn_create_my_project">创建我的项目</a>
+                                <a class="layui-btn layui-btn-normal" id="btn_create_my_project">创建我的项目</a>
                             </div>
                         </form>
                     </div>

@@ -31,6 +31,8 @@ $(function () {
                 layer.msg(res.message, {icon: res.code});
             },
             error: function () {
+                layer.closeAll();
+                $('.fly-imagecode').click();
                 layer.msg('获取验证码失败！', {icon: 2});
             }
         });
@@ -74,6 +76,8 @@ $(function () {
                 }
             },
             error: function () {
+                layer.closeAll();
+                $('.fly-imagecode').click();
                 layer.msg('重置密码失败！', {icon: 2});
             }
         });

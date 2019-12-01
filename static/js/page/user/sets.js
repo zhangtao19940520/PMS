@@ -2,8 +2,12 @@ $(function () {
     // 修改用户信息
     $('#user_info_edit').click(function () {
         layer.confirm('确定修改信息？', {icon: 3, title: '修改个人资料'}, function () {
-            var formData = $('#user_info_form').serializeObject();
-            formData['technology_stack'] = formData['technology_stack'].join(',');
+            let formData = $('#user_info_form').serializeObject();
+            let technology_stack = formData['technology_stack'] || '';
+            if (technology_stack != '' && typeof technology_stack == "object") {
+                technology_stack = formData['technology_stack'].join(',');
+            }
+            formData['technology_stack'] = technology_stack;
             formData['r'] = Math.random();
             $.ajax({
                 url: '/user/edit_user',
@@ -22,6 +26,7 @@ $(function () {
                     }
                 },
                 error: function () {
+                    layer.closeAll();
                     layer.msg('修改信息失败，请稍后再试！', {icon: 2});
                 }
             });
@@ -54,6 +59,7 @@ $(function () {
                         }
                     },
                     error: function () {
+                        layer.closeAll();
                         layer.msg('修改头像失败，请稍后再试！', {icon: 2});
                     }
                 });
@@ -100,6 +106,7 @@ $(function () {
                 }
             },
             error: function () {
+                layer.closeAll();
                 layer.msg('密码修改失败，请稍后再试。', {icon: 2});
             }
         });
