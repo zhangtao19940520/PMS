@@ -8,8 +8,9 @@
 
 {% block content %}
     {% include 'layout/left.html' %}
+    <input type="hidden" id="to_sub" value="{{ to_sub }}">
     <div class="fly-panel fly-panel-user" pad20="">
-        <div class="layui-tab layui-tab-brief" lay-filter="user">
+        <div class="layui-tab layui-tab-brief" lay-filter="project_manage">
             <ul class="layui-tab-title" id="LAY_mine">
                 <li class="layui-this" lay-id="with_project">参与的项目</li>
                 <li lay-id="has_create" class="">已创建的项目</li>
@@ -20,6 +21,18 @@
                     参与的项目
                 </div>
                 <div class="layui-form layui-form-pane layui-tab-item">
+                    <form action="" class="layui-form" id="form_search_project">
+                        <div class="layui-form-item" style="margin: 10px 0 0;">
+                            <label class="layui-form-label" for="pj_title_search"
+                                   style="width: auto; padding-right: 5px;">项目标题：</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="pj_title_search" name="pj_title_search" class="layui-input"
+                                       value="">
+                            </div>
+                            <a class="layui-btn" id="btn_search_my_create_project">搜索</a>
+                        </div>
+                    </form>
+                    <div id="my_create_project_table" lay-filter="my_create_project"></div>
                 </div>
                 <div class="layui-form layui-form-pane layui-tab-item">
                     <div class="layui-form layui-form-pane">
@@ -59,7 +72,7 @@
                                 <label for="pj_except_fee" class="layui-form-label">预算金额</label>
                                 <div class="layui-input-inline">
                                     <input type="number" id="pj_except_fee" name="pj_except_fee" value=""
-                                           class="layui-input" placeholder="￥">
+                                           class="layui-input" placeholder="￥" maxlength="8">
                                 </div>
                                 <div class="layui-form-mid layui-word-aux">项目预算金额，仅仅只是一个预算，别当真...</div>
                             </div>
@@ -67,7 +80,7 @@
                                 <label for="pj_except_day" class="layui-form-label">预算时间</label>
                                 <div class="layui-input-inline">
                                     <input type="number" id="pj_except_day" name="pj_except_day" value=""
-                                           class="layui-input" placeholder="单位（天）">
+                                           class="layui-input" placeholder="单位（天）" maxlength="4">
                                 </div>
                                 <div class="layui-form-mid layui-word-aux">项目预算时间，仅仅只是一个预算，别当真...</div>
                             </div>
@@ -93,5 +106,9 @@
 {% endblock %}
 
 {% block js %}
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-xs" lay-event="detail_edit">查看编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="detail_del">删除</a>
+    </script>
     <script src="/static/js/page/project/manage.js?t={% now 'YmdHis' %}"></script>
 {% endblock %}

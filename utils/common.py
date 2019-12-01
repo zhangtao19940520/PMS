@@ -190,10 +190,25 @@ class Common(object):
             for i in enums:
                 if i[1] == str_msg:
                     return i[0]
-                else:
-                    return -99
+            return -99
         except Exception as e:
             return -99
+
+    @classmethod
+    def get_enum_str_by_val(cls, enums, val):
+        """
+        获取指定枚举中指定值得字符串
+        :param enums:
+        :param val:指定的枚举数值
+        :return:
+        """
+        try:
+            for i in enums:
+                if i[0] == int(val):
+                    return i[1]
+            return ''
+        except Exception as e:
+            return ''
 
     @classmethod
     def str_to_int(cls, str_msg):

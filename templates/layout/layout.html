@@ -24,7 +24,7 @@
 <script src="/static/layui/layui.all.js"></script>
 <script>
     // layui的组件初始化
-    layui.use(['layer', 'upload', 'laydate', 'table', 'tree', 'util', 'form', 'layedit'], function () {
+    layui.use(['layer', 'upload', 'laydate', 'table', 'tree', 'util', 'form', 'layedit', 'element'], function () {
         window.layer = layui.layer;
         window.upload = layui.upload;
         window.laydate = layui.laydate;
@@ -33,6 +33,7 @@
         window.util = layui.util;
         window.form = layui.form;
         window.layedit = layui.layedit;
+        window.element = layui.element;
         window.$ = layui.$;
     });
     // ajax添加csrftoken
