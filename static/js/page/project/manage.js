@@ -3,7 +3,7 @@ $(function () {
     let li_msg = 'li[lay-id="' + to_sub + '"]';
     if (to_sub !== '') {
         $(li_msg).click();
-        if (to_sub == 'has_create') {
+        if (to_sub === 'has_create') {
             searchMyCreateProject();
         }
     }
@@ -125,7 +125,7 @@ function searchMyCreateProject() {
 
                 //监听行工具事件
                 table.on('tool(my_create_project)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
-                    var data = obj.data //获得当前行数据
+                    let data = obj.data //获得当前行数据
                         , layEvent = obj.event; //获得 lay-event 对应的值
                     //编辑查看
                     if (layEvent === 'detail_edit') {
