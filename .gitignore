@@ -106,3 +106,4 @@ venv.bak/
 migrations/
 utils/config.py
 /static/media/2019/11/
+/static/media/
