@@ -114,11 +114,20 @@ function searchMyCreateProject() {
                     , limit: 10
                     , cols: [[ //表头
                         {field: 'pj_title', title: '项目标题', width: 270, sort: true, align: 'center'},
-                        {field: 'pj_status', title: '项目状态', width: 120, sort: true, align: 'center'},
+                        {field: 'pj_status', title: '项目状态', width: 130, sort: true, align: 'center'},
                         {field: 'pj_except_fee', title: '项目预算费用（￥）', width: 180, sort: true, align: 'center'},
                         {field: 'pj_except_day', title: '项目预算时间（天）', width: 180, sort: true, align: 'center'},
                         {field: 'create_time', title: '创建时间', width: 180, sort: true, align: 'center'},
-                        {fixed: 'right', title: '操作', width: 165, align: 'center', toolbar: '#barDemo'}
+                        {
+                            fixed: 'right', title: '操作', width: 165, align: 'center', templet: function (d) {
+                                let html_str = "<a class='layui-btn layui-btn-xs' lay-event='detail_edit'>查看编辑</a>";
+                                console.log(d.pj_status);
+                                if (d.pj_status == '已创建待审核') {
+                                    html_str += '<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="detail_del">删除</a>';
+                                }
+                                return html_str;
+                            }
+                        }
                     ]],
                     data: res.data
                 });
@@ -132,7 +141,29 @@ function searchMyCreateProject() {
                         layer.msg('编辑');
                     }
                     if (layEvent === 'detail_del') {
-                        layer.msg('删除');
+                        layer.confirm('确定删除？', {icon: 3, title: '删除项目'}, function () {
+                            $.ajax({
+                                url: '/project/update_project_delete',
+                                type: 'POST',
+                                data: {
+                                    pj_id: data.pj_id
+                                },
+                                beforeSend: function () {
+                                    layer.load(3);
+                                },
+                                success: function (res) {
+                                    layer.closeAll();
+                                    layer.msg(res.message, {icon: res.code});
+                                    if (!res.error) {
+                                        setTimeout(searchMyCreateProject, 1000);
+                                    }
+                                },
+                                error: function () {
+                                    layer.closeAll();
+                                    layer.msg('删除项目失败，请稍后再试！', {icon: 2});
+                                }
+                            });
+                        })
                     }
 
                 });

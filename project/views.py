@@ -97,6 +97,34 @@ def create_project(request):
 
 
 @check_login
+@require_http_methods(['POST'])
+def update_project_delete(request):
+    """
+    逻辑删除创建的项目
+    :param request:
+    :return:
+    """
+    ret_val = ReturnValue()
+    user_info = request.session.get('user_info')
+    post_data = request.POST
+    pj_id = post_data.get('pj_id', 0)
+    pj_info = models.ProjectInfo.objects.filter(pj_id=pj_id, pj_is_del=False).first()
+    if not pj_info:
+        ret_val.error = True
+        ret_val.message = '该项目不存在，请确认后再试！'
+        ret_val.code = 2
+        return JsonResponse(ret_val.dict())
+    if pj_info.pj_status != common.Common.get_enum_val_by_str(enums.ProjectStatus, '已创建待审核'):
+        ret_val.error = True
+        ret_val.message = '审核通过的项目无法删除！'
+        ret_val.code = 2
+        return JsonResponse(ret_val.dict())
+    if models.ProjectInfo.objects.filter(pj_id=pj_id).update(pj_is_del=True):
+        ret_val.message = '已删除！'
+    return JsonResponse(ret_val.dict())
+
+
+@check_login
 def search_my_create_project(request):
     """
     搜索我创建的项目
@@ -113,7 +141,7 @@ def search_my_create_project(request):
         .order_by('-create_time').all().values("pj_id", "pj_title", "pj_sub", 'pj_content', "pj_actual_day",
                                                "pj_actual_fee", "pj_except_fee",
                                                "pj_except_day", "pj_start_time", "pj_end_time", 'create_time',
-                                               "pj_status")
+                                               "pj_status", "pj_is_del")
     ret_val.data = [{
         'pj_id': i.get('pj_id'),
         'pj_title': i.get('pj_title'),
@@ -123,6 +151,7 @@ def search_my_create_project(request):
         'pj_actual_fee': i.get('pj_actual_fee'),
         'pj_except_fee': i.get('pj_except_fee'),
         'pj_except_day': i.get('pj_except_day'),
+        'pj_is_del': i.get('pj_is_del', False),
         'pj_start_time': i.get('pj_start_time').strftime('%Y-%m-%d'),
         'pj_end_time': i.get('pj_end_time').strftime('%Y-%m-%d'),
         'create_time': i.get('create_time').strftime('%Y-%m-%d %H:%M:%S'),

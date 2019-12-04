@@ -29,5 +29,15 @@ class ProjectInfo(models.Model):
     def __str__(self):
         return self.pj_title
 
+    def to_delete(self):
+        """
+        逻辑删除数据
+        :return:
+        """
+        print(self.pj_id)
+        self.is_delete = True
+        self.save()
+        print(self.is_delete)
+
     class Meta:
         verbose_name_plural = verbose_name = "项目信息"
