@@ -121,8 +121,7 @@ function searchMyCreateProject() {
                         {
                             fixed: 'right', title: '操作', width: 165, align: 'center', templet: function (d) {
                                 let html_str = "<a class='layui-btn layui-btn-xs' lay-event='detail_edit'>查看编辑</a>";
-                                console.log(d.pj_status);
-                                if (d.pj_status == '已创建待审核') {
+                                if (d.pj_status === '已创建待审核') {
                                     html_str += '<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="detail_del">删除</a>';
                                 }
                                 return html_str;
