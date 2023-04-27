@@ -95,8 +95,8 @@ CACHES = {
         'LOCATION': 'redis://127.0.0.1:6379',
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-            'CONNECTION_POOL_KWARGS': {"max_connections": 100},
-            # "PASSWORD":"密码",
+            'CONNECTION_POOL_KWARGS': {"decode_responses": False, "max_connections": 100},
+            # "PASSWORD": ""
         }
     },
 }
@@ -144,3 +144,19 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "static/")
 SESSION_COOKIE_AGE = 60 * 60 * 24
 SESSION_SAVE_EVERY_REQUEST = True
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+
+
+# 邮件配置
+MAIL_SERVER = ""
+MAIL_PORT = 465
+MAIL_USE_SSL = True
+MAIL_USE_TLS = False
+MAIL_USERNAME = ""
+MAIL_PASSWORD = ""
+MAIL_DEFAULT_SENDER = ('发送者', 'xxx@zhangtao1994.com')
+MAIL_SUPPRESS_SEND = False  # 当设置为True时不会真正发送邮件（一般用于测试）
+
+try:
+    from .local_settings import *
+except ImportError as e:
+    print(e.args)

@@ -11,6 +11,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import smtplib
 import os
+from django.conf import settings
 
 
 # from config import EMAIL_USER, EMAIL_PWD, EMAIL_HOST
@@ -233,10 +234,9 @@ class SendEmail(object):
         :param user:邮件用户名
         :param passwd:邮件登录口令
         """
-        from utils.config import EMAIL_USER, EMAIL_PWD, EMAIL_HOST
-        self.user = EMAIL_USER
-        self.passwd = EMAIL_PWD
-        self.host = EMAIL_HOST
+        self.user = settings.MAIL_USERNAME
+        self.passwd = settings.MAIL_PASSWORD
+        self.host = settings.MAIL_SERVER
 
         server = smtplib.SMTP_SSL(host=self.host)
         server.connect(self.host, 465)

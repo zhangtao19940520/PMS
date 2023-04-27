@@ -103,7 +103,8 @@ venv.bak/
 # mypy
 .mypy_cache/
 /.idea/
-migrations/
+#migrations/
 utils/config.py
 /static/media/2019/11/
 /static/media/
+local_setting.py
